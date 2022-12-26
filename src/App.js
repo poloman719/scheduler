@@ -1,25 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import c from "./App.module.css";
+import { taskActions } from "./store";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import Tasks from "./components/Tasks";
+import Archive from "./components/Archive";
 
-function App() {
+let isInit = true;
+
+const App = () => {
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.task.tasks);
+  const archive = useSelector((state) => state.task.archive);
+  const [page, setPage] = useState(true);
+
+  useEffect(() => {
+    fetch("https://scheduler-4a371-default-rtdb.firebaseio.com/tasks.json")
+      .then((response) => response.json())
+      .then((data) => data && dispatch(taskActions.replaceTasks(data)));
+    fetch("https://scheduler-4a371-default-rtdb.firebaseio.com/archive.json")
+      .then((response) => response.json())
+      .then((data) => data && dispatch(taskActions.replaceArchive(data)));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isInit) return;
+    fetch("https://scheduler-4a371-default-rtdb.firebaseio.com/tasks.json", {
+      method: "PUT",
+      body: JSON.stringify(tasks),
+    });
+  }, [tasks]);
+
+  useEffect(() => {
+    if (isInit) {
+      isInit = false;
+      return;
+    }
+    fetch("https://scheduler-4a371-default-rtdb.firebaseio.com/archive.json", {
+      method: "PUT",
+      body: JSON.stringify(archive),
+    });
+  }, [archive]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+    <>
+      <style>
+        @import
+        url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+      </style>
+      <div className={c.header}>
+        <p className={page ? "" : c.notOpen} onClick={() => setPage(true)}>
+          Tasks
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <p className={c.title}>Scheduler</p>
+        <p className={page ? c.notOpen : ""} onClick={() => setPage(false)}>
+          Archive
+        </p>
+      </div>
+      {page ? <Tasks tasks={tasks}/> : <Archive archive={archive}/>}
+    </>
   );
-}
+};
 
 export default App;

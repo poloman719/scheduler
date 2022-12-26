@@ -1,0 +1,72 @@
+.itemList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.archiveContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.archivedTasks {
+  border-radius: 25px;
+  margin: 0px 5px;
+  padding: 25px;
+}
+
+.archivedTasks.selected {
+  animation: open-archived-tasks 0.25s forwards;
+}
+
+.archivedTasks.unselected {
+  animation: close-archived-tasks 0.25s forwards;
+}
+
+@keyframes open-archived-tasks {
+  0% {
+    width: 0%;
+    border: 1px solid grey;
+    font-size: 0px;
+  }
+  100% {
+    width: 100%;
+    border: 1px solid grey;
+    font-size: 20px;
+  }
+}
+
+@keyframes close-archived-tasks {
+  0% {
+    width: 100%;
+    border: 1px solid grey;
+    font-size: 20px;
+  }
+
+  100% {
+    width: 0%;
+    border: 1px solid grey;
+    font-size: 0px;
+  }
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taskTime {
+  color: grey;
+}
+
+@keyframes open-task {
+  0% {
+    visibility: hidden;
+    width: 0%;
+  }
+
+  100% {
+    visibility: visible;
+    width: 100%;
+  }
+}

@@ -1,0 +1,30 @@
+.itemList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.archive {
+  display: flex;
+  margin-left: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.archiveOuter {
+  width: 40%;
+  height: 40%;
+  border: 1px solid white;
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.archiveInner {
+  width: 100%;
+  height: 100%;
+  border-top: 1px solid white;
+  margin-top: 10px;
+  font-size: 10px;
+}

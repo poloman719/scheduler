@@ -1,0 +1,39 @@
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  font-size: 20px;
+  padding: 10px;
+  border: 1px solid grey;
+  margin: 5px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.item:hover, .selected {
+  border-color: white;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+}
+
+.item p {
+  margin: 0;
+}
+
+.time {
+  font-size: 15px;
+  color: grey;
+}
+
+.item button {
+  width: 25px;
+  height: 25px;
+  font-size: 10px;
+}

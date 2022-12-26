@@ -1,0 +1,58 @@
+* {
+  font-family: "Roboto Condensed";
+  color: white;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  border-bottom: solid 1px white;
+  width: 600px;
+  padding: 25px;
+  align-items: baseline;
+  height: 100px;
+  margin-bottom: 25px;
+}
+
+.title {
+  font-size: 50px;
+}
+
+button {
+  float: right;
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  border: solid 1px white;
+  border-radius: 50%;
+  font-size: 30px;
+  padding: 0;
+}
+
+button:hover {
+  border: solid 2px white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(1.05);
+}
+
+.notOpen {
+  color: grey;
+}
+
+.notOpen:hover {
+  color: white;
+  border-bottom: 1px solid white;
+  cursor: pointer;
+}
