@@ -7,6 +7,7 @@ const taskSlice = createSlice({
     archive: [],
     selectedTasks: { primary: null, secondary: null, tasks: [] },
     groups: [],
+    pressedKeys: [],
   },
   reducers: {
     replaceTasks(state, action) {
@@ -54,14 +55,25 @@ const taskSlice = createSlice({
       );
       let lesser, greater;
       if (primaryIdx < secondaryIdx) {
-        lesser = primary;
-        greater = secondary;
+        lesser = primaryIdx;
+        greater = secondaryIdx;
       } else {
-        lesser = secondary;
-        greater = primary;
+        lesser = secondaryIdx;
+        greater = primaryIdx;
       }
       state.selectedTasks.tasks = state.tasks.filter(
-        (task) => task >= lesser && task <= greater
+        (task) => {
+          const taskIdx = state.tasks.findIndex((item) => item.id === task.id);
+          return taskIdx >= lesser && taskIdx <= greater;
+        }
+      ).map((task) => task.id);
+    },
+    addPressedKey(state, action) {
+      if (!state.pressedKeys.includes(action.payload)) state.pressedKeys.push(action.payload);
+    },
+    removePressedKey(state, action) {
+      state.pressedKeys = state.pressedKeys.filter(
+        (key) => key !== action.payload
       );
     },
   },

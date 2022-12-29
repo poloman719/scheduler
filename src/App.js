@@ -14,6 +14,23 @@ const App = () => {
   const [page, setPage] = useState(true);
 
   useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key.length > 1) dispatch(taskActions.addPressedKey(e.key));
+    };
+    const onKeyUp = (e) => {
+      if (e.key.length > 1) dispatch(taskActions.removePressedKey(e.key));
+    };
+
+    document.body.addEventListener("keydown", onKeyDown);
+    document.body.addEventListener("keyup", onKeyUp);
+
+    return () => {
+      document.body.removeEventListener("keydown", onKeyDown);
+      document.body.removeEventListener("keyup", onKeyUp);
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
     fetch("https://scheduler-4a371-default-rtdb.firebaseio.com/tasks.json")
       .then((response) => response.json())
       .then((data) => data && dispatch(taskActions.replaceTasks(data)));
@@ -56,7 +73,7 @@ const App = () => {
           Archive
         </p>
       </div>
-      {page ? <Tasks tasks={tasks}/> : <Archive archive={archive}/>}
+      {page ? <Tasks tasks={tasks} /> : <Archive archive={archive} />}
     </>
   );
 };

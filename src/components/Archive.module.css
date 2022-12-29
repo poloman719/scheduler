@@ -70,3 +70,8 @@
     width: 100%;
   }
 }
+
+.taskName {
+  word-wrap: break-word;
+  width: 60%;
+}

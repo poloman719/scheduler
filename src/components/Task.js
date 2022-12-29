@@ -1,5 +1,5 @@
 import { useState, useRef, useReducer } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { taskActions } from "../store";
 import endSound from "../audio/endSound.wav";
 import warningSound from "../audio/warningSound.wav";
@@ -42,6 +42,7 @@ const checkMinutes = (minuteRef) =>
 const Task = (props) => {
   const [valid, setValid] = useState(true);
   const dispatchTimeouts = useReducer(timeoutsReducer, [])[1];
+  const pressedKeys = useSelector((state) => state.task.pressedKeys);
   const dispatch = useDispatch();
 
   const startHoursRef = useRef();
@@ -106,10 +107,22 @@ const Task = (props) => {
 
   const closeHandler = () => dispatch(taskActions.removeTask(props.id));
 
-  const taskClass = `${c.task} ${!valid ? c.invalid : (props.selected ? c.selected : '')}`;
-  
+  const onClickHandler = () => {
+    if (pressedKeys.includes("Shift")) {
+      dispatch(taskActions.setSecondarySelectedTask(props.id));
+      console.log("secondary");
+    } else {
+      dispatch(taskActions.setPrimarySelectedTask(props.id));
+      console.log("primary");
+    }
+  };
+
+  const taskClass = `${c.task} ${
+    !valid ? c.invalid : props.selected ? c.selected : ""
+  }`;
+
   return (
-    <div className={taskClass} onClick={() => dispatch(taskActions.setPrimarySelectedTask(props.id))}>
+    <div className={taskClass} onClick={onClickHandler}>
       <input
         className={c.taskName}
         ref={nameRef}
