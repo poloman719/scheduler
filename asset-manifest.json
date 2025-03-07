@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/scheduler/static/css/main.a57ae751.css",
+    "main.js": "/scheduler/static/js/main.f427f297.js",
+    "static/media/warningSound.wav": "/scheduler/static/media/warningSound.54f09e8ab9c181b3419a.wav",
+    "static/media/endSound.wav": "/scheduler/static/media/endSound.f16a56ea7c371172446a.wav",
+    "index.html": "/scheduler/index.html",
+    "main.a57ae751.css.map": "/scheduler/static/css/main.a57ae751.css.map",
+    "main.f427f297.js.map": "/scheduler/static/js/main.f427f297.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a57ae751.css",
+    "static/js/main.f427f297.js"
+  ]
+}
