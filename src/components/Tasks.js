@@ -9,12 +9,12 @@ const formatNum = (num) => {
 };
 
 const Tasks = (props) => {
-  const selectedTasks = useSelector(state => state.task.selectedTasks.tasks);
+  const selectedTasks = useSelector((state) => state.task.selectedTasks.tasks);
+  const tasks = useSelector((state) => state.task.tasks);
   const dispatch = useDispatch();
 
   const addTaskHandler = () => {
-    const hours = formatNum(new Date().getHours());
-    const minutes = formatNum(new Date().getMinutes());
+    const [hours, minutes] = determineNewTaskTime();
     dispatch(
       taskActions.addTask({
         name: "",
@@ -23,6 +23,22 @@ const Tasks = (props) => {
         id: Math.floor(Math.random() * 1000),
       })
     );
+  };
+
+  const determineNewTaskTime = () => {
+    const currentHours = formatNum(new Date().getHours());
+    const currentMinutes = formatNum(new Date().getMinutes());
+    if (tasks && tasks.length > 0) {
+      const lastHours = tasks[tasks.length - 1].end.hours;
+      const lastMinutes = tasks[tasks.length - 1].end.minutes;
+      if (
+        currentHours < lastHours ||
+        (currentHours === lastHours && currentMinutes < lastMinutes)
+      ) {
+        return [lastHours, lastMinutes];
+      }
+    }
+    return [currentHours, currentMinutes];
   };
 
   const archiveAllHandler = () => {
